@@ -123,6 +123,7 @@ A documentação interativa da API está disponível via Swagger UI após a apli
     *   `PUT /categories/:id`: Atualizar uma categoria (ADMIN).
     *   `DELETE /categories/:id`: Deletar uma categoria (ADMIN).
 
+### Screenshot do Swagger UI
 ![Image](https://github.com/user-attachments/assets/9d67b721-3f5f-4771-b070-e197148720b6)
 
 ## 🧪 Teste de Requisições com Postman
