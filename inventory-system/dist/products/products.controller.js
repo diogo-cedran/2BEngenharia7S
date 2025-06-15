@@ -35,6 +35,9 @@ let ProductsController = class ProductsController {
     findOne(id) {
         return this.productsService.findOne(id);
     }
+    findByCategory(categoryName) {
+        return this.productsService.findByCategory(categoryName);
+    }
     update(id, updateProductDto) {
         return this.productsService.update(id, updateProductDto);
     }
@@ -66,6 +69,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ProductsController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)('by-category/:categoryName'),
+    (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.USER),
+    __param(0, (0, common_1.Param)('categoryName')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProductsController.prototype, "findByCategory", null);
 __decorate([
     (0, common_1.Put)(':id'),
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN),

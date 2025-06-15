@@ -18,4 +18,8 @@ export class CreateProductDto {
   @Min(0)
   @IsOptional()
   stock?: number;
+
+  @IsString()
+  @IsNotEmpty()
+  categoryName: string;
 } 

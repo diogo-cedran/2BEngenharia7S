@@ -17,24 +17,50 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const product_entity_1 = require("./entities/product.entity");
+const category_entity_1 = require("../categories/entities/category.entity");
 let ProductsService = class ProductsService {
     productsRepository;
-    constructor(productsRepository) {
+    categoriesRepository;
+    constructor(productsRepository, categoriesRepository) {
         this.productsRepository = productsRepository;
+        this.categoriesRepository = categoriesRepository;
     }
     async create(createProductDto) {
-        const product = this.productsRepository.create(createProductDto);
+        const category = await this.categoriesRepository.findOne({
+            where: { name: createProductDto.categoryName }
+        });
+        if (!category) {
+            throw new common_1.NotFoundException(`Category with name ${createProductDto.categoryName} not found`);
+        }
+        const product = this.productsRepository.create({
+            ...createProductDto,
+            categoryId: category.id
+        });
         return this.productsRepository.save(product);
     }
     async findAll() {
-        return this.productsRepository.find();
+        return this.productsRepository.find({
+            relations: ['category'],
+        });
     }
     async findOne(id) {
-        const product = await this.productsRepository.findOne({ where: { id } });
+        const product = await this.productsRepository.findOne({ where: { id }, relations: ['category'] });
         if (!product) {
             throw new common_1.NotFoundException(`Product with ID ${id} not found`);
         }
         return product;
+    }
+    async findByCategory(categoryName) {
+        const category = await this.categoriesRepository.findOne({
+            where: { name: categoryName }
+        });
+        if (!category) {
+            throw new common_1.NotFoundException(`Category with name ${categoryName} not found`);
+        }
+        return this.productsRepository.find({
+            where: { categoryId: category.id },
+            relations: ['category'],
+        });
     }
     async update(id, updateProductDto) {
         const product = await this.findOne(id);
@@ -50,6 +76,8 @@ exports.ProductsService = ProductsService;
 exports.ProductsService = ProductsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(product_entity_1.Product)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(category_entity_1.Category)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], ProductsService);
 //# sourceMappingURL=products.service.js.map

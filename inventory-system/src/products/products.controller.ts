@@ -31,6 +31,12 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
+  @Get('by-category/:categoryName')
+  @Roles(UserRole.ADMIN, UserRole.USER)
+  findByCategory(@Param('categoryName') categoryName: string): Promise<Product[]> {
+    return this.productsService.findByCategory(categoryName);
+  }
+
   @Put(':id')
   @Roles(UserRole.ADMIN)
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto): Promise<Product> {
