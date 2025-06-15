@@ -27,7 +27,7 @@ Para executar este projeto localmente, siga os passos abaixo:
 
 2.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/seu-usuario/2BEngenharia7S.git
+    git clone https://github.com/diogo-cedran/2BEngenharia7S.git
     cd 2BEngenharia7S
     ```
 
