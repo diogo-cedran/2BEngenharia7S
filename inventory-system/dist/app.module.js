@@ -12,8 +12,10 @@ const typeorm_1 = require("@nestjs/typeorm");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
 const products_module_1 = require("./products/products.module");
+const categories_module_1 = require("./categories/categories.module");
 const user_entity_1 = require("./users/entities/user.entity");
 const product_entity_1 = require("./products/entities/product.entity");
+const category_entity_1 = require("./categories/entities/category.entity");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -27,12 +29,13 @@ exports.AppModule = AppModule = __decorate([
                 username: process.env.DATABASE_USERNAME || 'postgres',
                 password: process.env.DATABASE_PASSWORD || 'postgres',
                 database: process.env.DATABASE_NAME || 'inventory_db',
-                entities: [user_entity_1.User, product_entity_1.Product],
+                entities: [user_entity_1.User, product_entity_1.Product, category_entity_1.Category],
                 synchronize: true,
             }),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             products_module_1.ProductsModule,
+            categories_module_1.CategoriesModule,
         ],
     })
 ], AppModule);
