@@ -11,7 +11,9 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const users_module_1 = require("./users/users.module");
 const auth_module_1 = require("./auth/auth.module");
+const products_module_1 = require("./products/products.module");
 const user_entity_1 = require("./users/entities/user.entity");
+const product_entity_1 = require("./products/entities/product.entity");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -25,11 +27,12 @@ exports.AppModule = AppModule = __decorate([
                 username: process.env.DATABASE_USERNAME || 'postgres',
                 password: process.env.DATABASE_PASSWORD || 'postgres',
                 database: process.env.DATABASE_NAME || 'inventory_db',
-                entities: [user_entity_1.User],
+                entities: [user_entity_1.User, product_entity_1.Product],
                 synchronize: true,
             }),
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
+            products_module_1.ProductsModule,
         ],
     })
 ], AppModule);
